@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2023/12/12 00:34:53 by asuc             ###   ########.fr        #
+#    Updated: 2023/12/12 00:44:31 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ fclean : clean
 test : all
 	@./$(NAME)
 
-testValrind : all
+valrindTest : all
 	@valgrind --suppressions=test.supp --leak-check=full --show-reachable=yes --error-limit=no ./$(NAME)
 re : fclean all
 
