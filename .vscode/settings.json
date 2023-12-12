@@ -66,6 +66,8 @@
     "mlx.h": "c",
     "complex.h": "c",
     "libft.h": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "cmath": "c",
+    "complex": "c"
   }
 }

@@ -87,7 +87,7 @@ all : $(NAME)
 
 %.o : %.c
 	@if [ $(CURR) -eq 0 ]; then \
-		@echo "\n$(BCyan)Compiling object files for $(NAME)...$(RESET)\n"; \
+		echo "\n$(BCyan)Compiling object files for $(NAME)...\n$(RESET)"; \
 	fi
 	@$(COMP) -gdwarf-4 -fPIE -O3 -march=native $(CFLAGS) -o $@ -c $<
 	@$(call update_progress)
@@ -95,7 +95,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@ar -rcs $(NAME) $(OBJ)
-	@echo "$(BGreen)Compilation OK $(NAME)$(RESET)\n\n"
+	@echo "$(BGreen)Compilation OK $(NAME)$(RESET)\n\n\n\n"
 
 
 clean :
@@ -106,4 +106,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY: all fclean clean re start
+.PHONY: all fclean clean re

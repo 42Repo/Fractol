@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2023/12/12 03:23:37 by asuc             ###   ########.fr        #
+#    Updated: 2023/12/12 21:12:09 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ start :
 
 $(NAME) : $(OBJ)
 	@make --no-print-directory -C $(libft)
-	@make --no-print-directory -C $(MacroLibX)
+	@make --no-print-directory -j -C $(MacroLibX)
 	@cp $(libft)libft.a libft.a
 	@clang -gdwarf-4 -fPIE $(CFLAGS) -o $(NAME) $(OBJ) libft.a MacroLibX/libmlx.so -lSDL2 -lm
 	@echo "\n$(BGreen)Compilation Final $(NAME)$(RESET)"
