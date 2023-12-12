@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/12 23:09:54 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/12 23:42:49 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,9 @@ int	hook_key(int keycode, void *data)
 	return (0);
 }
 
-double	map(double x, double in_min, double in_max, double out_min, double out_max , double ratio, int i)
+double	map(double x, double in_min, double in_max, double out_min, double out_max)
 {
-	if (i == 0)
-		return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min));
-	else
-		return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min) * ratio);
+	return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min));
 }
 int	mandelbrot(t_data *data)
 {
@@ -67,21 +64,29 @@ int	mandelbrot(t_data *data)
 	int		iter_max;
 	int		iter;
 	double	ktemp;
-	int		ratio;
+	double	ratio;
 
 	i = 0;
 	j = 0;
 	if (WIDTH > HEIGHT)
-		ratio = WIDTH / HEIGHT;
+		ratio = (double)WIDTH / (double)HEIGHT;
 	else
-		ratio = HEIGHT / WIDTH;
+		ratio = (double)HEIGHT / (double)WIDTH;
 	while (i < HEIGHT)
 	{
 		j = 0;
 		while (j < WIDTH)
 		{
-			i0 = map(i, 0, HEIGHT, -2.0, 2.0, ratio, 0);
-			j0 = map(j, 0, WIDTH, -2.0, 2.0, ratio, 1);
+			if (WIDTH > HEIGHT)
+			{
+				i0 = map(i, 0, HEIGHT, -2, 2);
+				j0 = map(j, 0, WIDTH, -2 * ratio, 2 * ratio);
+			}
+			else
+			{
+				i0 = map(i, 0, HEIGHT, -2 * ratio, 2 * ratio);
+				j0 = map(j, 0, WIDTH, -2, 2);
+			}
 			zr = 0;
 			zi = 0;
 			iter_max = 100;
