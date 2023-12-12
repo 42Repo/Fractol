@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/12 03:03:56 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/12 03:14:56 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,17 @@ int	hook_key(int keycode, void *data)
 	return (0);
 }
 
-int mandelbrot()
-{}
+int	mandelbrot(t_data *data)
+{
+	(void)data;
+	return (0);
+}
 
-int complex_calcul(t_data *data,
+int	complex_calcul(t_data *data)
+{
+	(void)data;
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
