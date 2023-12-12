@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/12 00:43:06 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/12 02:55:57 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_data
 	void	*win;
 	void	*mlx;
 	int		*tab;
+	void	*img;
 }	t_data;
 
 void	close_window(t_data *data);

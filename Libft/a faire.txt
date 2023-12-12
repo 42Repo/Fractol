@@ -1,3 +1,0 @@
-Check all declaration (fonction + .h)
-TOUT proteger input, malloc, ect
-checker avec tout les compilateur avec tout les testeur

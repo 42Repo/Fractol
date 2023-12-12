@@ -15,6 +15,10 @@ COMP = clang
 CFLAGS = -Wall -Werror -Wextra
 RESET	=	$(shell echo "\033[0m")
 BCyan	=	$(shell echo "\033[1;36m")
+BGreen	=	$(shell echo "\033[1;32m")
+Green	=	$(shell echo "\033[0;32m")
+
+
 
 LIB = ft_strlen.c\
 	ft_atoi.c\
@@ -69,25 +73,37 @@ BONUS =	ft_lstadd_back_bonus.c\
 SRC = $(LIB) $(ADDITIONAL) $(BONUS)
 
 OBJ = $(SRC:.c=.o)
+TOTAL = $(words $(OBJ))
+CURR = 0
+
+define update_progress
+  $(eval CURR=$(shell echo $$(($(CURR)+1))))
+  @echo -n "\033[1A\033[K"
+  @echo -n "$(Green)[`echo "scale=2; $(CURR)/$(TOTAL)*100" | bc`%] Compiling $< \n$(RESET)"
+endef
+
 
 all : $(NAME)
 
 %.o : %.c
+	@if [ $(CURR) -eq 0 ]; then \
+		@echo "\n$(BCyan)Compiling object files for $(NAME)...$(RESET)\n"; \
+	fi
 	@$(COMP) -gdwarf-4 -fPIE -O3 -march=native $(CFLAGS) -o $@ -c $<
+	@$(call update_progress)
+
 
 $(NAME) : $(OBJ)
 	@ar -rcs $(NAME) $(OBJ)
+	@echo "$(BGreen)Compilation OK $(NAME)$(RESET)\n\n"
+
 
 clean :
 	@rm -f $(OBJ)
-
-so:
-	$(CC) -nostartfiles -fPIC  $(CFLAGS) $(SRC)
-	gcc -nostartfiles -shared -o libft.so $(OBJ)
 
 fclean : clean
 	@rm -f $(NAME)
 
 re : fclean all
 
-.PHONY: all fclean clean re
+.PHONY: all fclean clean re start

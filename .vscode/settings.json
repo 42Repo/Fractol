@@ -63,6 +63,7 @@
     "ranges": "c",
     "span": "c",
     "fractol.h": "c",
-    "mlx.h": "c"
+    "mlx.h": "c",
+    "complex.h": "c"
   }
 }
