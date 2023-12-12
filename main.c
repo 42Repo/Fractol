@@ -6,12 +6,13 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/12 03:14:56 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/12 03:28:29 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <complex.h>
+#include <stdio.h>
 
 void	close_window(t_data *data)
 {
@@ -46,7 +47,10 @@ int	hook_key(int keycode, void *data)
 
 int	mandelbrot(t_data *data)
 {
-	(void)data;
+	int i;
+
+	i = 0;
+	
 	return (0);
 }
 
@@ -58,7 +62,9 @@ int	complex_calcul(t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data	*data;
+	t_data		*data;
+	double complex z1 = I * 1;
+	printf("I * I = %.1f et %.1fi\n", creal(z1), cimag(z1));
 
 	(void)argc;
 	(void)argv;
@@ -67,7 +73,6 @@ int	main(int argc, char **argv)
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, 400, 400, "Fractol");
 	data->img = mlx_new_image(data->mlx, 400, 400);
-	mlx_pixel_put(data->mlx, data->win, 200, 200, 0x00FFFFFF);
 	mlx_on_event(data->mlx, data->win, 0, hook_key, data);
 	mlx_loop(data->mlx);
 	return (0);

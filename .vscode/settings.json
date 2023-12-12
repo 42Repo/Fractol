@@ -64,6 +64,8 @@
     "span": "c",
     "fractol.h": "c",
     "mlx.h": "c",
-    "complex.h": "c"
+    "complex.h": "c",
+    "libft.h": "c",
+    "math.h": "c"
   }
 }
