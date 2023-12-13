@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 01:21:22 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 01:27:31 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	hook_key(int keycode, void *data)
 	return (0);
 }
 
-double	map(double x, double in_min, double in_max, double out_min, double out_max)
+double	map(double x, double in_min, double in_max, double out_min,
+		double out_max)
 {
 	return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min));
 }
@@ -82,8 +83,8 @@ int	mandelbrot(t_data *data)
 	double	zi;
 	double	ktemp;
 	double	ratio;
-	double log_zn;
-	double nu;
+	double	log_zn;
+	double	nu;
 
 	i = 0;
 	j = 0;
@@ -110,7 +111,8 @@ int	mandelbrot(t_data *data)
 			zi = 0;
 			data->max_iter = 100;
 			data->iter = 0;
-			while (zr * zr + zi * zi <= (1 << 16) && data->iter < data->max_iter)
+			while (zr * zr + zi * zi <= (1 << 16)
+				&& data->iter < data->max_iter)
 			{
 				ktemp = zr * zr - zi * zi + i0;
 				zi = 2 * zr * zi + j0;
@@ -122,7 +124,8 @@ int	mandelbrot(t_data *data)
 				log_zn = log(zr * zr + zi * zi) / 2;
 				nu = log(log_zn / log(2)) / log(2);
 				data->iter = data->iter + 1 - (unsigned int)nu;
-				data->color = powf((float)((i / data->max_iter) * 360, 1.5) % 360, 100), (float)(i / data->max_iter) * 100;
+				data->color = powf((float)((i / data->max_iter) * 360, 1.5)
+						% 360, 100), (float)(i / data->max_iter) * 100;
 				mlx_pixel_put(data->mlx, data->win, i, j, data->color);
 			}
 			else
@@ -145,7 +148,7 @@ int	complex_calcul(t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data		*data;
+	t_data	*data;
 
 	(void)argc;
 	(void)argv;
