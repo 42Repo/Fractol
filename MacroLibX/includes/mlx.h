@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
+/*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:56:35 by maldavid          #+#    #+#             */
-/*   Updated: 2023/12/11 20:35:41 by kbz_8            ###   ########.fr       */
+/*   Updated: 2023/12/13 04:26:18 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ MLX_API int mlx_on_event(void* mlx, void* win, mlx_event_type event, int (*f)(in
  * @param y			Y coordinate
  * @param color		Color of the pixel (coded on 3 bytes in an int, 0x00RRGGBB)
  *
- * Note : If your're reading pixel colors from an image, don't forget to shift them 
+ * Note : If your're reading pixel colors from an image, don't forget to shift them
  * one byte to the right as image pixels are encoded as 0xRRGGBBAA and pixel put takes 0x00RRGGBB.
- * 
+ *
  * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
  */
 MLX_API int mlx_pixel_put(void* mlx, void* win, int x, int y, int color);
@@ -284,7 +284,7 @@ MLX_API int mlx_string_put(void* mlx, void* win, int x, int y, int color, char* 
  * @param win		Internal window
  * @param filepath	Filepath to the font
  *
- * @return (void)	
+ * @return (void)
  */
 MLX_API void mlx_set_font(void* mlx, void* win, char* filepath);
 
@@ -296,7 +296,7 @@ MLX_API void mlx_set_font(void* mlx, void* win, char* filepath);
  * @param filepath	Filepath to the font
  * @param scale		Scale to apply to the font
  *
- * @return (void)	
+ * @return (void)
  */
 MLX_API void mlx_set_font_scale(void* mlx, void* win, char* filepath, float scale);
 
