@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 04:26:19 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 05:15:28 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define HEIGHT 400
 #define WIDTH 800
 
-int	mandelbrot(t_data *data);
+int				mandelbrot(t_data *data);
 
 void	close_window(t_data *data)
 {
@@ -50,24 +50,32 @@ double	map(double x, double in_min, double in_max, double out_min,
 void	apply_zoom(t_data *data)
 {
 	double	zoom_factor;
+	double	mouse_re;
+	double	mouse_im;
 
 	mlx_mouse_get_pos(data->mlx, &data->mouse_x, &data->mouse_y);
 	zoom_factor = 1.1;
-    double mouse_re = map(data->mouse_x, 0, WIDTH, data->center_x - 2 / data->zoom_factor, data->center_x + 2 / data->zoom_factor);
-    double mouse_im = map(data->mouse_y, 0, HEIGHT, data->center_y - 2 / data->zoom_factor, data->center_y + 2 / data->zoom_factor);
+	mouse_re = map(data->mouse_x, 0, WIDTH, data->center_x - 2
+			/ data->zoom_factor, data->center_x + 2 / data->zoom_factor);
+	mouse_im = map(data->mouse_y, 0, HEIGHT, data->center_y - 2
+			/ data->zoom_factor, data->center_y + 2 / data->zoom_factor);
 	data->zoom_factor *= zoom_factor;
 	data->center_x = mouse_re + (data->center_x - mouse_re) / zoom_factor;
 	data->center_y = mouse_im + (data->center_y - mouse_im) / zoom_factor;
 }
 
-void	apply_dezoom(t_data	*data)
+void	apply_dezoom(t_data *data)
 {
 	double	zoom_factor;
+	double	mouse_re;
+	double	mouse_im;
 
 	mlx_mouse_get_pos(data->mlx, &data->mouse_x, &data->mouse_y);
 	zoom_factor = 0.9;
-    double mouse_re = map(data->mouse_x, 0, WIDTH, data->center_x - 2 / data->zoom_factor, data->center_x + 2 / data->zoom_factor);
-    double mouse_im = map(data->mouse_y, 0, HEIGHT, data->center_y - 2 / data->zoom_factor, data->center_y + 2 / data->zoom_factor);
+	mouse_re = map(data->mouse_x, 0, WIDTH, data->center_x - 2
+			/ data->zoom_factor, data->center_x + 2 / data->zoom_factor);
+	mouse_im = map(data->mouse_y, 0, HEIGHT, data->center_y - 2
+			/ data->zoom_factor, data->center_y + 2 / data->zoom_factor);
 	data->zoom_factor *= zoom_factor;
 	data->center_x = mouse_re + (data->center_x - mouse_re) / zoom_factor;
 	data->center_y = mouse_im + (data->center_y - mouse_im) / zoom_factor;
@@ -140,6 +148,7 @@ int	mandelbrot(t_data *data)
 	double	zi;
 	double	ktemp;
 	double	ratio;
+
 	// double	log_zn;
 	// double	nu;
 	data->min_x = data->center_x - (2.0 / data->zoom_factor);
@@ -160,7 +169,8 @@ int	mandelbrot(t_data *data)
 			if (WIDTH > HEIGHT)
 			{
 				i0 = map(i, 0, WIDTH, data->min_x, data->max_x);
-				j0 = map(j, 0, HEIGHT, data->min_y * ratio, data->max_y * ratio);
+				j0 = map(j, 0, HEIGHT, data->min_y * ratio, data->max_y
+						* ratio);
 			}
 			else
 			{
@@ -182,7 +192,7 @@ int	mandelbrot(t_data *data)
 			{
 				// log_zn = log(zr * zr + zi * zi) / 2;
 				// nu = log(log_zn / log(2)) / log(2);
-				//data->iter = data->iter + 1 - (unsigned int)nu;
+				// data->iter = data->iter + 1 - (unsigned int)nu;
 				data->color = get_color(data);
 				mlx_pixel_put(data->mlx, data->win, i, j, data->color);
 			}
