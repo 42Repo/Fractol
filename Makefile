@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2023/12/13 07:47:31 by asuc             ###   ########.fr        #
+#    Updated: 2023/12/13 10:33:44 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,14 @@ NAME		=	fract-ol
 COMP		=	clang
 CFLAGS		=	-Wall -Werror -Wextra
 libft		=	Libft/
-SRC			=	main.c
+SRC			=	srcs/color.c \
+				srcs/fractol.c \
+				srcs/hook_key.c \
+				srcs/iter_change.c \
+				srcs/mandelbrot.c \
+				srcs/moves.c \
+				srcs/zoom.c
+
 MacroLibX	=	MacroLibX/
 
 # on ajoute un message jsute avant de faire la compilation de tout les OBJ
