@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 06:14:16 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 07:06:34 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <time.h>
 
 #define KEY_ESC 41
-#define HEIGHT 400
+#define HEIGHT 800
 #define WIDTH 800
 #define PALETTE_SIZE 512
 
@@ -90,59 +90,45 @@ void	decrease_max_iter(t_data *data)
 {
 	data->max_iter -= 10;
 }
+
+void	set_iteration_to(t_data *data, int iter)
+{
+	data->max_iter = iter;
+}
+
 int	hook_key(int keycode, void *data)
 {
-	if (keycode == KEY_ESC)
+	if (keycode == KEY_ESC || keycode == 0)
 	{
 		free_all(data);
 		close_window(data);
 	}
 	if (keycode == 1)
-	{
 		apply_zoom(data);
-		mandelbrot(data);
-	}
 	if (keycode == 2)
-	{
 		apply_dezoom(data);
-		mandelbrot(data);
-	}
 	if (keycode == 87)
-	{
 		increase_max_iter(data);
-		mandelbrot(data);
-	}
 	if (keycode == 86)
-	{
 		decrease_max_iter(data);
+	if (keycode == 96)
+		set_iteration_to(data, 1000);
+	if (keycode == 95)
+		set_iteration_to(data, 100);
+	if (keycode == 1 || keycode == 2 || keycode == 87 || keycode == 86 || keycode == 96 || keycode == 95)
 		mandelbrot(data);
-	}
+
 	ft_printf("keycode = %d\n", keycode);
 	return (0);
-}
-
-double	map_color(double i, double max)
-{
-	return (i * 255 / max);
-}
-
-unsigned int	get_color(t_data *data)
-{
-	unsigned int	res;
-	unsigned int	tmp;
-
-	res = 0xFF01977A;
-	tmp = map_color(data->iter, data->max_iter);
-	res += tmp << 16;
-	res += tmp << 8;
-	res += tmp;
-	return (res);
 }
 
 unsigned int	linear_interpolate(unsigned int color1, unsigned int color2,
 		double t)
 {
-	unsigned int r, g, b;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+
 	r = (unsigned int)((1 - t) * ((color1 >> 16) & 0xFF) + t
 			* ((color2 >> 16) & 0xFF));
 	g = (unsigned int)((1 - t) * ((color1 >> 8) & 0xFF) + t
@@ -213,8 +199,6 @@ int	mandelbrot(t_data *data)
 				log_zn = log(zr * zr + zi * zi) / 2;
 				nu = log(log_zn / log(2)) / log(2);
 				data->iter = data->iter + 1 - (unsigned int)nu;
-				// data->color = get_color(data);
-				// mlx_pixel_put(data->mlx, data->win, i, j, data->color);
 			}
 			color1 = get_palette_color(floor(data->iter), data->palette);
 			color2 = get_palette_color(floor(data->iter) + 1, data->palette);
@@ -247,6 +231,7 @@ void	init_palette(unsigned int palette[])
 		i++;
 	}
 }
+
 int	main(int argc, char **argv)
 {
 	t_data			*data;
@@ -266,6 +251,7 @@ int	main(int argc, char **argv)
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	mlx_on_event(data->mlx, data->win, 0, hook_key, data);
 	mlx_on_event(data->mlx, data->win, 4, hook_key, data);
+	mlx_on_event(data->mlx, data->win, 5, hook_key, data);
 	mandelbrot(data);
 	mlx_loop(data->mlx);
 	return (0);
