@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:22:07 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 11:14:25 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 15:12:08 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	mandelbrot(t_data *data)
 	double			zi;
 	double			ktemp;
 	double			ratio;
-	double			log_zn;
-	double			nu;
 	unsigned int	color1;
 	unsigned int	color2;
 
@@ -70,17 +68,26 @@ int	mandelbrot(t_data *data)
 				zr = ktemp;
 				data->iter++;
 			}
-			if (data->iter == data->max_iter)
+			if (data->color_mode == 0)
 			{
-				log_zn = log(zr * zr + zi * zi) / 2;
-				nu = log(log_zn / log(2)) / log(2);
-				data->iter = data->iter + 1 - (unsigned int)nu;
+				data->color = 0x00000000;
+				if (data->iter != data->max_iter)
+				{
+					color1 = get_palette_color(floor(data->iter), data->palette);
+					color2 = get_palette_color(floor(data->iter) + 1, data->palette);
+					data->color = linear_interpolate(color1, color2, data->iter
+							- floor(data->iter));
+				}
+				mlx_pixel_put(data->mlx, data->win, i, j, data->color);
 			}
-			color1 = get_palette_color(floor(data->iter), data->palette);
-			color2 = get_palette_color(floor(data->iter) + 1, data->palette);
-			data->color = linear_interpolate(color1, color2, data->iter
-					- floor(data->iter));
-			mlx_pixel_put(data->mlx, data->win, i, j, data->color);
+			else if (data->color_mode == 1)
+			{
+				color1 = get_palette_color(floor(data->iter), data->palette);
+				color2 = get_palette_color(floor(data->iter) + 1, data->palette);
+				data->color = linear_interpolate(color1, color2, data->iter
+						- floor(data->iter));
+				mlx_pixel_put(data->mlx, data->win, i, j, data->color);
+			}
 			j++;
 		}
 		i++;

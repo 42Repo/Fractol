@@ -6,11 +6,21 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:21:52 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 10:34:10 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 14:59:43 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
+
+void	choose_fractal(t_data *data)
+{
+	if (data->mode == 0)
+		julia(data);
+	else if (data->mode == 1)
+		mandelbrot(data);
+	// else if (data->mode == 2)
+		// burningship(data);
+}
 
 int	hook_key_mouse(int keycode, void *data)
 {
@@ -18,8 +28,16 @@ int	hook_key_mouse(int keycode, void *data)
 		apply_zoom(data);
 	if (keycode == 2)
 		apply_dezoom(data);
-	mandelbrot(data);
+	choose_fractal(data);
 	return (0);
+}
+
+void	change_color_mode(t_data *data)
+{
+	if (data->color_mode == 0)
+		data->color_mode = 1;
+	else if (data->color_mode == 1)
+		data->color_mode = 0;
 }
 
 int	hook_key_keyboard(int keycode, void *data)
@@ -42,8 +60,11 @@ int	hook_key_keyboard(int keycode, void *data)
 		move_down(data);
 	if (keycode == 82)
 		move_up(data);
+	if (keycode == 89)
+		change_color_mode(data);
 	if (keycode == 87 || keycode == 86 || keycode == 96 || keycode == 95
-		|| keycode == 79 || keycode == 80 || keycode == 81 || keycode == 82)
-		mandelbrot(data);
+		|| keycode == 79 || keycode == 80 || keycode == 81 || keycode == 82
+		|| keycode == 89)
+		choose_fractal(data);
 	return (0);
 }

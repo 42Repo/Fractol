@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 11:09:49 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 14:37:29 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "Libft/libft.h"
 # include "MacroLibX/includes/mlx.h"
 # include <math.h>
+# include <stdio.h>
 
 # define HEIGHT 800
 # define WIDTH 800
@@ -39,6 +40,10 @@ typedef struct s_data
 	double			min_y;
 	double			max_y;
 	unsigned int	*palette;
+	double			c_r;
+	double			c_i;
+	int				mode;
+	int				color_mode;
 }	t_data;
 
 unsigned int	linear_interpolate(unsigned int color1, unsigned int color2,

@@ -68,6 +68,7 @@
     "libft.h": "c",
     "math.h": "c",
     "cmath": "c",
-    "complex": "c"
+    "complex": "c",
+    "random": "c"
   }
 }
