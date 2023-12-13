@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 10:32:00 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 11:09:49 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void			move_down(t_data *data);
 void			move_up(t_data *data);
 void			apply_zoom(t_data *data);
 void			apply_dezoom(t_data *data);
+int				julia(t_data *data);
 
 #endif

@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 10:22:07 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 11:14:25 by asuc             ###   ########.fr       */
+/*   Created: 2023/12/13 11:07:03 by asuc              #+#    #+#             */
+/*   Updated: 2023/12/13 11:18:17 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-double	map(double x, double in_min, double in_max, double out_min,
-		double out_max)
-{
-	return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min));
-}
-
-int	mandelbrot(t_data *data)
+int	julia(t_data *data)
 {
 	int				i;
 	int				j;
@@ -28,10 +22,10 @@ int	mandelbrot(t_data *data)
 	double			zi;
 	double			ktemp;
 	double			ratio;
-	double			log_zn;
-	double			nu;
-	unsigned int	color1;
-	unsigned int	color2;
+	// double			log_zn;
+	// double			nu;
+	// unsigned int	color1;
+	// unsigned int	color2;
 
 	data->min_x = data->center_x - (2.0 / data->zoom_factor);
 	data->max_x = data->center_x + (2.0 / data->zoom_factor);
@@ -62,25 +56,20 @@ int	mandelbrot(t_data *data)
 			zr = 0;
 			zi = 0;
 			data->iter = 0;
-			while (zr * zr + zi * zi <= 4
+			while (zr * zr + zi * zi <= (1600)
 				&& data->iter < data->max_iter)
 			{
-				ktemp = zr * zr - zi * zi + i0;
+				ktemp = zr * zr - zi * zi;
 				zi = 2 * zr * zi + j0;
-				zr = ktemp;
+				zr = ktemp + i0;
 				data->iter++;
 			}
 			if (data->iter == data->max_iter)
 			{
-				log_zn = log(zr * zr + zi * zi) / 2;
-				nu = log(log_zn / log(2)) / log(2);
-				data->iter = data->iter + 1 - (unsigned int)nu;
+				mlx_pixel_put(data->mlx, data->win, i, j, 0x000000);
 			}
-			color1 = get_palette_color(floor(data->iter), data->palette);
-			color2 = get_palette_color(floor(data->iter) + 1, data->palette);
-			data->color = linear_interpolate(color1, color2, data->iter
-					- floor(data->iter));
-			mlx_pixel_put(data->mlx, data->win, i, j, data->color);
+			else
+				mlx_pixel_put(data->mlx, data->win, i, j, 0xFFFFFF);
 			j++;
 		}
 		i++;

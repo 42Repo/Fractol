@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 10:34:06 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 11:09:24 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 	mlx_on_event(data->mlx, data->win, 0, hook_key_keyboard, data);
 	mlx_on_event(data->mlx, data->win, 5, hook_key_keyboard, data);
 	mlx_on_event(data->mlx, data->win, 4, hook_key_mouse, data);
-	mandelbrot(data);
+	julia(data);
 	mlx_loop(data->mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2023/12/13 10:33:44 by asuc             ###   ########.fr        #
+#    Updated: 2023/12/13 11:10:06 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC			=	srcs/color.c \
 				srcs/iter_change.c \
 				srcs/mandelbrot.c \
 				srcs/moves.c \
-				srcs/zoom.c
+				srcs/zoom.c \
+				srcs/julia.c \
 
 MacroLibX	=	MacroLibX/
 
@@ -55,21 +56,21 @@ start :
 	@echo "$(BCyan)Compilation Start$(NAME)$(RESET)\n\n"
 
 $(NAME) : $(OBJ)
-	@make --no-print-directory -C $(libft)
-	@make --no-print-directory -j -C $(MacroLibX)
+	@make --quiet --no-print-directory -C $(libft)
+	@make --quiet --no-print-directory -j -C $(MacroLibX)
 	@cp $(libft)libft.a libft.a
 	@clang -gdwarf-4 -fPIE $(CFLAGS) -o $(NAME) $(OBJ) libft.a MacroLibX/libmlx.so -lSDL2 -lm
 	@echo "\n$(BGreen)Compilation Final $(NAME)$(RESET)"
 
 clean :
-	@make clean --no-print-directory -C $(libft)
-	@make clean --no-print-directory -C $(MacroLibX)
+	@make clean --quiet --no-print-directory -C $(libft)
+	@make clean --quiet --no-print-directory -C $(MacroLibX)
 	@rm -f $(OBJ)
 	@echo "$(BRed)Erase all .o files$(RESET)"
 
 fclean : clean
-	@make fclean --no-print-directory -C $(libft)
-	@make fclean --no-print-directory -C $(MacroLibX)
+	@make fclean --quiet --no-print-directory -C $(libft)
+	@make fclean --quiet --no-print-directory -C $(MacroLibX)
 	@rm -f $(NAME) libft.a
 	@echo "$(BRed)Erase $(NAME), libft.a and $(MacroLibX)$(RESET)"
 

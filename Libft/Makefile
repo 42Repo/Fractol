@@ -95,7 +95,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@ar -rcs $(NAME) $(OBJ)
-	@echo "$(BGreen)Compilation OK $(NAME)$(RESET)\n\n\n\n"
+	@echo "$(BGreen)Compilation OK $(NAME)$(RESET)\n"
 
 
 clean :
