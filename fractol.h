@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 02:15:56 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 05:41:27 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_data
 	double			max_x;
 	double			min_y;
 	double			max_y;
+	unsigned int	*palette;
 }	t_data;
 
 void	close_window(t_data *data);

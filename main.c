@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 05:15:28 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 06:14:16 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #define KEY_ESC 41
 #define HEIGHT 400
 #define WIDTH 800
+#define PALETTE_SIZE 512
 
 int				mandelbrot(t_data *data);
 
@@ -138,19 +139,38 @@ unsigned int	get_color(t_data *data)
 	return (res);
 }
 
+unsigned int	linear_interpolate(unsigned int color1, unsigned int color2,
+		double t)
+{
+	unsigned int r, g, b;
+	r = (unsigned int)((1 - t) * ((color1 >> 16) & 0xFF) + t
+			* ((color2 >> 16) & 0xFF));
+	g = (unsigned int)((1 - t) * ((color1 >> 8) & 0xFF) + t
+			* ((color2 >> 8) & 0xFF));
+	b = (unsigned int)((1 - t) * (color1 & 0xFF) + t * (color2 & 0xFF));
+	return ((r << 16) | (g << 8) | b);
+}
+
+unsigned int	get_palette_color(int index, unsigned int palette[])
+{
+	return (palette[index % PALETTE_SIZE]);
+}
+
 int	mandelbrot(t_data *data)
 {
-	int		i;
-	int		j;
-	double	i0;
-	double	j0;
-	double	zr;
-	double	zi;
-	double	ktemp;
-	double	ratio;
+	int				i;
+	int				j;
+	double			i0;
+	double			j0;
+	double			zr;
+	double			zi;
+	double			ktemp;
+	double			ratio;
+	double			log_zn;
+	double			nu;
+	unsigned int	color1;
+	unsigned int	color2;
 
-	// double	log_zn;
-	// double	nu;
 	data->min_x = data->center_x - (2.0 / data->zoom_factor);
 	data->max_x = data->center_x + (2.0 / data->zoom_factor);
 	data->min_y = data->center_y - (2.0 / data->zoom_factor);
@@ -190,17 +210,17 @@ int	mandelbrot(t_data *data)
 			}
 			if (data->iter == data->max_iter)
 			{
-				// log_zn = log(zr * zr + zi * zi) / 2;
-				// nu = log(log_zn / log(2)) / log(2);
-				// data->iter = data->iter + 1 - (unsigned int)nu;
-				data->color = get_color(data);
-				mlx_pixel_put(data->mlx, data->win, i, j, data->color);
+				log_zn = log(zr * zr + zi * zi) / 2;
+				nu = log(log_zn / log(2)) / log(2);
+				data->iter = data->iter + 1 - (unsigned int)nu;
+				// data->color = get_color(data);
+				// mlx_pixel_put(data->mlx, data->win, i, j, data->color);
 			}
-			else
-			{
-				data->color = get_color(data);
-				mlx_pixel_put(data->mlx, data->win, i, j, 0xFFFFFF);
-			}
+			color1 = get_palette_color(floor(data->iter), data->palette);
+			color2 = get_palette_color(floor(data->iter) + 1, data->palette);
+			data->color = linear_interpolate(color1, color2, data->iter
+					- floor(data->iter));
+			mlx_pixel_put(data->mlx, data->win, i, j, data->color);
 			j++;
 		}
 		i++;
@@ -208,17 +228,39 @@ int	mandelbrot(t_data *data)
 	return (0);
 }
 
+void	init_palette(unsigned int palette[])
+{
+	int				i;
+	double			t;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+
+	i = 0;
+	while (i < PALETTE_SIZE)
+	{
+		t = (double)i / (PALETTE_SIZE - 1);
+		r = (unsigned int)(9 * (1 - t) * t * t * t * 255);
+		g = (unsigned int)(15 * (1 - t) * (1 - t) * t * t * 255);
+		b = (unsigned int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+		palette[i] = (r << 16) | (g << 8) | b;
+		i++;
+	}
+}
 int	main(int argc, char **argv)
 {
-	t_data	*data;
+	t_data			*data;
+	unsigned int	palette[PALETTE_SIZE];
 
 	(void)argc;
 	(void)argv;
 	data = malloc(sizeof(t_data));
+	init_palette(palette);
 	data->center_x = 0;
 	data->center_y = 0;
 	data->zoom_factor = 1;
 	data->max_iter = 50;
+	data->palette = palette;
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Fractol");
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
