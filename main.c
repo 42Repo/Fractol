@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 07:06:34 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 07:41:51 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 #include <stdio.h>
 #include <time.h>
 
-#define KEY_ESC 41
 #define HEIGHT 800
 #define WIDTH 800
-#define PALETTE_SIZE 512
+#define PALETTE_SIZE 256
 
 int				mandelbrot(t_data *data);
 
@@ -86,6 +85,7 @@ void	increase_max_iter(t_data *data)
 {
 	data->max_iter += 10;
 }
+
 void	decrease_max_iter(t_data *data)
 {
 	data->max_iter -= 10;
@@ -96,9 +96,29 @@ void	set_iteration_to(t_data *data, int iter)
 	data->max_iter = iter;
 }
 
+void	move_right(t_data *data)
+{
+	data->center_x += 0.1 / data->zoom_factor;
+}
+
+void	move_left(t_data *data)
+{
+	data->center_x -= 0.1 / data->zoom_factor;
+}
+
+void	move_down(t_data *data)
+{
+	data->center_y += 0.1 / data->zoom_factor;
+}
+
+void	move_up(t_data *data)
+{
+	data->center_y -= 0.1 / data->zoom_factor;
+}
+
 int	hook_key(int keycode, void *data)
 {
-	if (keycode == KEY_ESC || keycode == 0)
+	if (keycode == 41 || keycode == 0)
 	{
 		free_all(data);
 		close_window(data);
@@ -115,10 +135,20 @@ int	hook_key(int keycode, void *data)
 		set_iteration_to(data, 1000);
 	if (keycode == 95)
 		set_iteration_to(data, 100);
-	if (keycode == 1 || keycode == 2 || keycode == 87 || keycode == 86 || keycode == 96 || keycode == 95)
-		mandelbrot(data);
+	if (keycode == 79)
+		move_right(data);
+	if (keycode == 80)
+		move_left(data);
+	if (keycode == 81)
+		move_down(data);
+	if (keycode == 82)
+		move_up(data);
+	printf("keycode: %d\n", keycode);
+	if (keycode == 1 || keycode == 2 || keycode == 87 || keycode == 86
+		|| keycode == 96 || keycode == 95 || keycode == 79 || keycode == 80
+		|| keycode == 81 || keycode == 82)
 
-	ft_printf("keycode = %d\n", keycode);
+		mandelbrot(data);
 	return (0);
 }
 
@@ -186,7 +216,7 @@ int	mandelbrot(t_data *data)
 			zr = 0;
 			zi = 0;
 			data->iter = 0;
-			while (zr * zr + zi * zi <= (1 << 16)
+			while (zr * zr + zi * zi <= 4
 				&& data->iter < data->max_iter)
 			{
 				ktemp = zr * zr - zi * zi + i0;
@@ -247,7 +277,7 @@ int	main(int argc, char **argv)
 	data->max_iter = 50;
 	data->palette = palette;
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Fractol");
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Fract-ol");
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	mlx_on_event(data->mlx, data->win, 0, hook_key, data);
 	mlx_on_event(data->mlx, data->win, 4, hook_key, data);
