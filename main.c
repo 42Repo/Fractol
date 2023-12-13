@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 07:41:51 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 09:32:38 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	apply_zoom(t_data *data)
 	double	mouse_im;
 
 	mlx_mouse_get_pos(data->mlx, &data->mouse_x, &data->mouse_y);
-	zoom_factor = 1.1;
+	zoom_factor = 1.2;
 	mouse_re = map(data->mouse_x, 0, WIDTH, data->center_x - 2
 			/ data->zoom_factor, data->center_x + 2 / data->zoom_factor);
 	mouse_im = map(data->mouse_y, 0, HEIGHT, data->center_y - 2
@@ -71,7 +71,7 @@ void	apply_dezoom(t_data *data)
 	double	mouse_im;
 
 	mlx_mouse_get_pos(data->mlx, &data->mouse_x, &data->mouse_y);
-	zoom_factor = 0.9;
+	zoom_factor = 0.8;
 	mouse_re = map(data->mouse_x, 0, WIDTH, data->center_x - 2
 			/ data->zoom_factor, data->center_x + 2 / data->zoom_factor);
 	mouse_im = map(data->mouse_y, 0, HEIGHT, data->center_y - 2
@@ -98,22 +98,22 @@ void	set_iteration_to(t_data *data, int iter)
 
 void	move_right(t_data *data)
 {
-	data->center_x += 0.1 / data->zoom_factor;
+	data->center_x += 0.5 / data->zoom_factor;
 }
 
 void	move_left(t_data *data)
 {
-	data->center_x -= 0.1 / data->zoom_factor;
+	data->center_x -= 0.5 / data->zoom_factor;
 }
 
 void	move_down(t_data *data)
 {
-	data->center_y += 0.1 / data->zoom_factor;
+	data->center_y += 0.5 / data->zoom_factor;
 }
 
 void	move_up(t_data *data)
 {
-	data->center_y -= 0.1 / data->zoom_factor;
+	data->center_y -= 0.5 / data->zoom_factor;
 }
 
 int	hook_key(int keycode, void *data)
@@ -147,7 +147,6 @@ int	hook_key(int keycode, void *data)
 	if (keycode == 1 || keycode == 2 || keycode == 87 || keycode == 86
 		|| keycode == 96 || keycode == 95 || keycode == 79 || keycode == 80
 		|| keycode == 81 || keycode == 82)
-
 		mandelbrot(data);
 	return (0);
 }
