@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/12 23:42:49 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 01:21:22 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,25 @@ double	map(double x, double in_min, double in_max, double out_min, double out_ma
 {
 	return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min));
 }
+
+double	map_color(double i, double max)
+{
+	return (i * 255 / max);
+}
+
+unsigned int	get_color(t_data *data)
+{
+	unsigned int	res;
+	unsigned int	tmp;
+
+	res = 0xFF58BA18;
+	tmp = map_color(data->iter, data->max_iter);
+	res += tmp << 16;
+	res += tmp << 8;
+	res += tmp;
+	return (res);
+}
+
 int	mandelbrot(t_data *data)
 {
 	int		i;
@@ -61,10 +80,10 @@ int	mandelbrot(t_data *data)
 	double	j0;
 	double	zr;
 	double	zi;
-	int		iter_max;
-	int		iter;
 	double	ktemp;
 	double	ratio;
+	double log_zn;
+	double nu;
 
 	i = 0;
 	j = 0;
@@ -89,19 +108,28 @@ int	mandelbrot(t_data *data)
 			}
 			zr = 0;
 			zi = 0;
-			iter_max = 100;
-			iter = 0;
-			while (zr * zr + zi * zi <= 4 && iter < iter_max)
+			data->max_iter = 100;
+			data->iter = 0;
+			while (zr * zr + zi * zi <= (1 << 16) && data->iter < data->max_iter)
 			{
 				ktemp = zr * zr - zi * zi + i0;
 				zi = 2 * zr * zi + j0;
 				zr = ktemp;
-				iter++;
+				data->iter++;
 			}
-			if (iter == iter_max)
-				mlx_pixel_put(data->mlx, data->win, i, j, 0x000000);
+			if (data->iter == data->max_iter)
+			{
+				log_zn = log(zr * zr + zi * zi) / 2;
+				nu = log(log_zn / log(2)) / log(2);
+				data->iter = data->iter + 1 - (unsigned int)nu;
+				data->color = powf((float)((i / data->max_iter) * 360, 1.5) % 360, 100), (float)(i / data->max_iter) * 100;
+				mlx_pixel_put(data->mlx, data->win, i, j, data->color);
+			}
 			else
+			{
+				data->color = get_color(data);
 				mlx_pixel_put(data->mlx, data->win, i, j, 0xFFFFFF);
+			}
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/12 03:18:30 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/13 01:09:30 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 
 typedef struct s_data
 {
-	void	*win;
-	void	*mlx;
-	int		*tab;
-	void	*img;
+	void			*win;
+	void			*mlx;
+	int				*tab;
+	void			*img;
+	int				iter;
+	int				max_iter;
+	unsigned int	color;
+
 }	t_data;
 
 void	close_window(t_data *data);
