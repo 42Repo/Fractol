@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 14:37:29 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 17:29:24 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct s_data
 	void			*win;
 	void			*mlx;
 	void			*img;
-	int				iter;
-	int				max_iter;
+	double			iter;
+	double			max_iter;
 	unsigned int	color;
 	double			zoom_factor;
 	double			center_x;
@@ -44,6 +44,8 @@ typedef struct s_data
 	double			c_i;
 	int				mode;
 	int				color_mode;
+	int				smooth;
+	int				pixel_size;
 }	t_data;
 
 unsigned int	linear_interpolate(unsigned int color1, unsigned int color2,
@@ -67,5 +69,12 @@ void			move_up(t_data *data);
 void			apply_zoom(t_data *data);
 void			apply_dezoom(t_data *data);
 int				julia(t_data *data);
+void			change_color_mode(t_data *data);
+void			change_smooth(t_data *data);
+void			choose_fractal(t_data *data);
+void			put_pixel_art(t_data *data, int x, int y, unsigned int color, int pixel_size);
+int				burningship(t_data *data);
+
+
 
 #endif

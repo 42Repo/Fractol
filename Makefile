@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2023/12/13 11:10:06 by asuc             ###   ########.fr        #
+#    Updated: 2023/12/14 17:29:34 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC			=	srcs/color.c \
 				srcs/moves.c \
 				srcs/zoom.c \
 				srcs/julia.c \
+				srcs/burningship.c \
 
 MacroLibX	=	MacroLibX/
 

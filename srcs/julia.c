@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:17:42 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/14 14:54:23 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 17:07:56 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,29 @@ int	julia(t_data *data)
 				zx = xtemp + data->c_r;
 				data->iter++;
 			}
-			data->color = 0x00000000;
-			if (data->iter != data->max_iter)
+			if (data->color_mode == 0)
 			{
-				color1 = get_palette_color(floor(data->iter), data->palette);
-				color2 = get_palette_color(floor(data->iter) + 1,
-						data->palette);
+				data->color = 0x00000000;
+				if (data->iter != data->max_iter)
+				{
+					color1 = get_palette_color((data->iter), data->palette);
+					color2 = get_palette_color((data->iter) + 1, data->palette);
+					data->color = linear_interpolate(color1, color2, data->iter
+							- floor(data->iter));
+				}
+				put_pixel_art(data, i, j, data->color, data->pixel_size);
+			}
+			else if (data->color_mode == 1)
+			{
+				color1 = get_palette_color(floor(data->iter) + 1, data->palette);
+				color2 = get_palette_color(floor(data->iter) + 1, data->palette);
 				data->color = linear_interpolate(color1, color2, data->iter
 						- floor(data->iter));
+				put_pixel_art(data, i, j, data->color, data->pixel_size);
 			}
-			mlx_pixel_put(data->mlx, data->win, i, j, data->color);
-			j++;
+			j += data->pixel_size;
 		}
-		i++;
+		i += data->pixel_size;
 	}
 	return (0);
 }

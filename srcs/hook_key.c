@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:21:52 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/14 14:53:09 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 17:28:34 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	choose_fractal(t_data *data)
 		julia(data);
 	else if (data->mode == 1)
 		mandelbrot(data);
-	// else if (data->mode == 2)
-		// burninngship(data);
+	else if (data->mode == 2)
+		burningship(data);
 }
 
 int	hook_key_mouse(int keycode, void *data)
@@ -40,6 +40,30 @@ void	change_color_mode(t_data *data)
 		data->color_mode = 0;
 }
 
+void	change_smooth(t_data *data)
+{
+	if (data->smooth == 0)
+		data->smooth = 1;
+	else if (data->smooth == 1)
+		data->smooth = 0;
+}
+
+void	add_pixel_size(t_data *data)
+{
+	if (data->pixel_size < 16)
+		data->pixel_size++;
+}
+
+void	remove_pixel_size(t_data *data)
+{
+	if (data->pixel_size > 1)
+		data->pixel_size--;
+}
+
+void	set_pixel_size_to(t_data *data, int pixel_size)
+{
+	data->pixel_size = pixel_size;
+}
 int	hook_key_keyboard(int keycode, void *data)
 {
 	if (keycode == 41 || keycode == 0)
@@ -62,9 +86,19 @@ int	hook_key_keyboard(int keycode, void *data)
 		move_up(data);
 	if (keycode == 89)
 		change_color_mode(data);
+	if (keycode == 90)
+		change_smooth(data);
+	if (keycode == 91)
+		add_pixel_size(data);
+	if (keycode == 92)
+		remove_pixel_size(data);
+	if (keycode == 93)
+		set_pixel_size_to(data, 1);
 	if (keycode == 87 || keycode == 86 || keycode == 96 || keycode == 95
 		|| keycode == 79 || keycode == 80 || keycode == 81 || keycode == 82
-		|| keycode == 89)
+		|| keycode == 89 || keycode == 90 || keycode == 91 || keycode == 92
+		|| keycode == 93)
 		choose_fractal(data);
+	printf("keycode: %d\n", keycode);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/14 14:53:03 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 17:31:43 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	init_data(t_data *data)
 	data->max_iter = 50;
 	data->c_i = 0.158;
 	data->c_r = -0.8;
-	data->color_mode = 1;
+	data->color_mode = 0;
+	data->smooth = 0;
+	data->pixel_size = 1;
 }
 
 int	main(int argc, char **argv)
@@ -58,6 +60,13 @@ int	main(int argc, char **argv)
 		data->mode = 1;
 	else if (argv[1][0] == 'b')
 		data->mode = 2;
+	else
+	{
+		ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | burningship]\n",
+			2);
+		free(data);
+		return (0);
+	}
 	init_palette(palette);
 	data->palette = palette;
 	init_data(data);
@@ -67,6 +76,7 @@ int	main(int argc, char **argv)
 	mlx_on_event(data->mlx, data->win, 0, hook_key_keyboard, data);
 	mlx_on_event(data->mlx, data->win, 5, hook_key_keyboard, data);
 	mlx_on_event(data->mlx, data->win, 4, hook_key_mouse, data);
+	choose_fractal(data);
 	mlx_loop(data->mlx);
 	return (0);
 }

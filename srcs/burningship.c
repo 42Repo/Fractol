@@ -1,46 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   burningship.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 10:22:07 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/14 17:10:22 by asuc             ###   ########.fr       */
+/*   Created: 2023/12/14 17:25:38 by asuc              #+#    #+#             */
+/*   Updated: 2023/12/14 17:31:52 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-double	map(double x, double in_min, double in_max, double out_min,
-		double out_max)
+double	abs_double(double x)
 {
-	return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min));
+	if (x < 0)
+		return (-x);
+	return (x);
 }
 
-void	put_pixel_art(t_data *data, int x, int y, unsigned int color,
-		int pixel_size)
-{
-	int	dx;
-	int	dy;
-
-	dx = 0;
-	while (dx < pixel_size)
-	{
-		dy = 0;
-		while (dy < pixel_size)
-		{
-			if (x + dx < WIDTH && y + dy < HEIGHT)
-			{
-				mlx_pixel_put(data->mlx, data->win, x + dx, y + dy, color);
-			}
-			dy++;
-		}
-		dx++;
-	}
-}
-
-int	mandelbrot(t_data *data)
+int	burningship(t_data *data)
 {
 	int				i;
 	int				j;
@@ -85,7 +64,7 @@ int	mandelbrot(t_data *data)
 			while (zr * zr + zi * zi <= 4 && data->iter < data->max_iter)
 			{
 				ktemp = zr * zr - zi * zi + i0;
-				zi = 2 * zr * zi + j0;
+				zi = abs_double(2 * zr * zi) + j0;
 				zr = ktemp;
 				data->iter++;
 			}
