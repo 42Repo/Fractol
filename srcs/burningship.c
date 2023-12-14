@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:25:38 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/14 17:31:52 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 18:16:51 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	burningship(t_data *data)
 					data->color = linear_interpolate(color1, color2, data->iter
 							- floor(data->iter));
 				}
-				put_pixel_art(data, i, j, data->color, data->pixel_size);
+				put_pixel_art(data, i, j, data->color);
 			}
 			else if (data->color_mode == 1)
 			{
@@ -88,7 +88,7 @@ int	burningship(t_data *data)
 						data->palette);
 				data->color = linear_interpolate(color1, color2, data->iter
 						- floor(data->iter));
-				put_pixel_art(data, i, j, data->color, data->pixel_size);
+				put_pixel_art(data, i, j, data->color);
 			}
 			j += data->pixel_size;
 		}

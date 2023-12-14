@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/14 17:31:43 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 18:08:42 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,31 @@ void	init_data(t_data *data)
 	data->pixel_size = 1;
 }
 
+int	check_args(int argc, char **argv)
+{
+	while (1)
+	{
+		if (argc != 2)
+		{
+			ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | burningship]\n",
+				2);
+			return (-1);
+		}
+		if (argv[1][0] == 'j')
+			return (0);
+		else if (argv[1][0] == 'm')
+			return (1);
+		else if (argv[1][0] == 'b')
+			return (2);
+		else
+		{
+			ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | burningship]\n",
+				2);
+			return (-1);
+		}
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_data			*data;
@@ -47,26 +72,9 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	data = malloc(sizeof(t_data));
-	if (argc != 2)
-	{
-		ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | burningship]\n",
-			2);
-		free(data);
+	data->mode = check_args(argc, argv);
+	if (data->mode == -1)
 		return (0);
-	}
-	if (argv[1][0] == 'j')
-		data->mode = 0;
-	else if (argv[1][0] == 'm')
-		data->mode = 1;
-	else if (argv[1][0] == 'b')
-		data->mode = 2;
-	else
-	{
-		ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | burningship]\n",
-			2);
-		free(data);
-		return (0);
-	}
 	init_palette(palette);
 	data->palette = palette;
 	init_data(data);

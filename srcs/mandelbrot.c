@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:22:07 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/14 17:10:22 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 17:38:23 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@ double	map(double x, double in_min, double in_max, double out_min,
 	return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min));
 }
 
-void	put_pixel_art(t_data *data, int x, int y, unsigned int color,
-		int pixel_size)
+void	put_pixel_art(t_data *data, int x, int y, unsigned int color)
 {
 	int	dx;
 	int	dy;
 
 	dx = 0;
-	while (dx < pixel_size)
+	while (dx < data->pixel_size)
 	{
 		dy = 0;
-		while (dy < pixel_size)
+		while (dy < data->pixel_size)
 		{
 			if (x + dx < WIDTH && y + dy < HEIGHT)
 			{
@@ -99,7 +98,7 @@ int	mandelbrot(t_data *data)
 					data->color = linear_interpolate(color1, color2, data->iter
 							- floor(data->iter));
 				}
-				put_pixel_art(data, i, j, data->color, data->pixel_size);
+				put_pixel_art(data, i, j, data->color);
 			}
 			else if (data->color_mode == 1)
 			{
@@ -109,7 +108,7 @@ int	mandelbrot(t_data *data)
 						data->palette);
 				data->color = linear_interpolate(color1, color2, data->iter
 						- floor(data->iter));
-				put_pixel_art(data, i, j, data->color, data->pixel_size);
+				put_pixel_art(data, i, j, data->color);
 			}
 			j += data->pixel_size;
 		}
