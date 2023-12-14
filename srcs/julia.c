@@ -6,20 +6,22 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:17:42 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 14:36:18 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 14:54:23 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-int julia(t_data *data)
+int	julia(t_data *data)
 {
-	int i, j;
-	double zx, zy;
-	double xtemp;
-	const double r = 2.0;
+	double			xtemp;
+	const double	r = 2.0;
 	unsigned int	color1;
 	unsigned int	color2;
+	int				i;
+	int				j;
+	double			zx;
+	double			zy;
 
 	data->min_x = data->center_x - (2.0 / data->zoom_factor);
 	data->max_x = data->center_x + (2.0 / data->zoom_factor);
@@ -45,7 +47,8 @@ int julia(t_data *data)
 			if (data->iter != data->max_iter)
 			{
 				color1 = get_palette_color(floor(data->iter), data->palette);
-				color2 = get_palette_color(floor(data->iter) + 1, data->palette);
+				color2 = get_palette_color(floor(data->iter) + 1,
+						data->palette);
 				data->color = linear_interpolate(color1, color2, data->iter
 						- floor(data->iter));
 			}

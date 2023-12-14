@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:21:52 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 14:59:43 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 14:53:09 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	choose_fractal(t_data *data)
 	else if (data->mode == 1)
 		mandelbrot(data);
 	// else if (data->mode == 2)
-		// burningship(data);
+		// burninngship(data);
 }
 
 int	hook_key_mouse(int keycode, void *data)

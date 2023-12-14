@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/13 15:08:50 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/14 14:53:03 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	if (argc != 2)
 	{
-		ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | burningship]\n", 2);
+		ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | burningship]\n",
+			2);
 		free(data);
 		return (0);
 	}
