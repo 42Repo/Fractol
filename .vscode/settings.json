@@ -69,6 +69,7 @@
     "math.h": "c",
     "cmath": "c",
     "complex": "c",
-    "random": "c"
+    "random": "c",
+    "stdlib.h": "c"
   }
 }

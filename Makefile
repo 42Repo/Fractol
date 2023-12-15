@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2023/12/14 17:29:34 by asuc             ###   ########.fr        #
+#    Updated: 2023/12/14 20:09:35 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,22 +64,22 @@ $(NAME) : $(OBJ)
 	@echo "\n$(BGreen)Compilation Final $(NAME)$(RESET)"
 
 clean :
-	@make clean --quiet --no-print-directory -C $(libft)
-	@make clean --quiet --no-print-directory -C $(MacroLibX)
+	# @make clean --quiet --no-print-directory -C $(libft)
+	# @make clean --quiet --no-print-directory -C $(MacroLibX)
 	@rm -f $(OBJ)
 	@echo "$(BRed)Erase all .o files$(RESET)"
 
 fclean : clean
-	@make fclean --quiet --no-print-directory -C $(libft)
-	@make fclean --quiet --no-print-directory -C $(MacroLibX)
+	# @make fclean --quiet --no-print-directory -C $(libft)
+	# @make fclean --quiet --no-print-directory -C $(MacroLibX)
 	@rm -f $(NAME) libft.a
 	@echo "$(BRed)Erase $(NAME), libft.a and $(MacroLibX)$(RESET)"
 
-test : all
-	@./$(NAME)
+test : re
+	@./$(NAME) mandelbrot
 
 valrindTest : all
-	@valgrind --suppressions=test.supp --leak-check=full --show-reachable=yes --error-limit=no ./$(NAME)
+	@valgrind --suppressions=test.supp --leak-check=full --show-reachable=yes --error-limit=no ./$(NAME) julia
 re : fclean all
 
 .PHONY: all fclean clean re

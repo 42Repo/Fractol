@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:21:52 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/14 18:01:08 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/15 01:21:35 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	set_pixel_size_to(t_data *data, int pixel_size)
 	data->pixel_size = pixel_size;
 }
 
+
 int	hook_key_keyboard(int keycode, void *data)
 {
 	if (keycode == 41 || keycode == 0)
@@ -98,7 +99,7 @@ int	hook_key_keyboard(int keycode, void *data)
 	if (keycode == 87 || keycode == 86 || keycode == 96 || keycode == 95
 		|| keycode == 79 || keycode == 80 || keycode == 81 || keycode == 82
 		|| keycode == 89 || keycode == 90 || keycode == 91 || keycode == 92
-		|| keycode == 93)
+		|| keycode == 93 || keycode == 94)
 		choose_fractal(data);
 	return (0);
 }
