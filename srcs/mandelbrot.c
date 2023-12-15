@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:22:07 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/15 04:29:10 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/15 04:53:56 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,6 @@ int	mandelbrot(t_data *data)
 				log_zn = log(zr * zr + zi * zi) / 2;
 				nu = log(log_zn / log(2)) / log(2);
 				mu = (double)data->iter + 1 - nu;
-				color1 = get_palette_color(floor(mu), data->palette);
-				color2 = get_palette_color(ceil(mu), data->palette);
-				data->color = linear_interpolate(color1, color2, mu - floor(mu));
 			}
 			if (data->color_mode == 0)
 			{
@@ -109,7 +106,8 @@ int	mandelbrot(t_data *data)
 					{
 						color1 = get_palette_color(floor(mu), data->palette);
 						color2 = get_palette_color(ceil(mu), data->palette);
-						data->color = linear_interpolate(color1, color2, mu - floor(mu));
+						data->color = linear_interpolate(color1, color2, mu
+								- floor(mu));
 					}
 				}
 				else
@@ -117,9 +115,10 @@ int	mandelbrot(t_data *data)
 					if (data->iter != data->max_iter)
 					{
 						color1 = get_palette_color((data->iter), data->palette);
-						color2 = get_palette_color((data->iter) + 1, data->palette);
-						data->color = linear_interpolate(color1, color2, data->iter
-								- floor(data->iter));
+						color2 = get_palette_color((data->iter) + 1,
+								data->palette);
+						data->color = linear_interpolate(color1, color2,
+								data->iter - floor(data->iter));
 					}
 				}
 				put_pixel_art(data, i, j, data->color);
