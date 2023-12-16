@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/15 01:22:23 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/16 19:27:58 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	data->mode = check_args(argc, argv);
 	if (data->mode == -1)
+	{
+		free(data);
 		return (0);
+	}
 	init_palette(palette);
 	data->palette = palette;
 	init_data(data);

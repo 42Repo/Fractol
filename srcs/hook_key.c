@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:21:52 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/15 01:21:35 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/16 20:27:04 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	hook_key_keyboard(int keycode, void *data)
 	if (keycode == 86)
 		decrease_max_iter(data);
 	if (keycode == 96)
-		set_iteration_to(data, 1000);
+		set_iteration_to(data, 2000);
 	if (keycode == 95)
 		set_iteration_to(data, 100);
 	if (keycode == 79)
