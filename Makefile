@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2023/12/16 20:25:49 by asuc             ###   ########.fr        #
+#    Updated: 2023/12/16 20:43:25 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ all : $(NAME)
 	@if [ $(CURR) -eq 0 ]; then \
 		echo "\n$(BCyan)Compiling object files for $(NAME)...$(RESET)\n"; \
 	fi
-	@$(COMP) -gdwarf-4 -fPIE -O3 -march=native $(CFLAGS) -o $@ -c $<
+	@$(COMP) -gdwarf-4 -fPIE $(CFLAGS) -o $@ -c $<
 	@$(B)
 	@$(call update_progress)
 

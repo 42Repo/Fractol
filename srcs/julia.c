@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:17:42 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/15 03:58:46 by asuc             ###   ########.fr       */
+/*   Updated: 2023/12/16 20:37:27 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	julia(t_data *data)
 	double			zx;
 	double			zy;
 	double			ratio;
+	double			log_zn;
+	double			nu;
+	double			mu;
 
 	data->min_x = data->center_x - (2.0 / data->zoom_factor);
 	data->max_x = data->center_x + (2.0 / data->zoom_factor);
@@ -57,26 +60,36 @@ int	julia(t_data *data)
 				zx = xtemp + data->c_r;
 				data->iter++;
 			}
+			if (data->smooth == 1)
+			{
+				log_zn = log(zx * zx + zy * zy) / 2;
+				nu = log(log_zn / log(2)) / log(2);
+				mu = (double)data->iter + 1 - nu;
+			}
 			if (data->color_mode == 0)
 			{
 				data->color = 0x00000000;
-				if (data->iter != data->max_iter)
+				if (data->smooth == 1)
 				{
-					color1 = get_palette_color((data->iter), data->palette);
-					color2 = get_palette_color((data->iter) + 1, data->palette);
-					data->color = linear_interpolate(color1, color2, data->iter
-							- floor(data->iter));
+					if (data->iter != data->max_iter)
+					{
+						color1 = get_palette_color(floor(mu), data->palette);
+						color2 = get_palette_color(ceil(mu), data->palette);
+						data->color = linear_interpolate(color1, color2, mu
+								- floor(mu));
+					}
 				}
-				put_pixel_art(data, i, j, data->color);
-			}
-			else if (data->color_mode == 1)
-			{
-				color1 = get_palette_color(floor(data->iter) + 1,
-						data->palette);
-				color2 = get_palette_color(floor(data->iter) + 1,
-						data->palette);
-				data->color = linear_interpolate(color1, color2, data->iter
-						- floor(data->iter));
+				else
+				{
+					if (data->iter != data->max_iter)
+					{
+						color1 = get_palette_color((data->iter), data->palette);
+						color2 = get_palette_color((data->iter) + 1,
+								data->palette);
+						data->color = linear_interpolate(color1, color2,
+								data->iter - floor(data->iter));
+					}
+				}
 				put_pixel_art(data, i, j, data->color);
 			}
 			j += data->pixel_size;
