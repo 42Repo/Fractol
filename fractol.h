@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/15 04:30:07 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/11 18:09:46 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,9 @@ void				choose_fractal(t_data *data);
 void				put_pixel_art(t_data *data, int x, int y,
 						unsigned int color);
 int					burningship(t_data *data);
+void				add_pixel_size(t_data *data);
+void				remove_pixel_size(t_data *data);
+void				set_pixel_size_to(t_data *data, int pixel_size);
+void				hook_key_keyboard_2(int keycode, void *data);
 
 #endif
