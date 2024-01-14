@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 22:39:14 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/15 00:28:44 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/15 00:42:06 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ size_t	max_value(size_t nb1, size_t nb2)
 static int	is_valid_number(const char *str)
 {
 	int	decimal_point;
-	int	has_digit;
 
-	has_digit = 0;
 	decimal_point = 0;
 	if (*str == '-' || *str == '+')
 		str++;
