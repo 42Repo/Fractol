@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/16 21:21:53 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/14 23:28:52 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	close_window(t_data *data)
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
-	{
 		mlx_destroy_display(data->mlx);
-	}
 	free(data);
 	exit(0);
 }
@@ -40,19 +38,42 @@ void	init_data(t_data *data)
 	data->pixel_size = 1;
 }
 
-int	check_args(int argc, char **argv)
+
+int	set_julia(char **argv, t_data *data)
 {
-	if (argc != 2)
+	(void)argv;
+	(void)data;
+	return (1);
+}
+
+int	check_input_julia(int argc, char **argv)
+{
+	if (argc == 4)
+	{
+		if (ft_strncmp(argv[1], "julia", max_value((size_t)(argv[1]), 5)) == 0)
+		{
+			// on check si argv[2] et argv[3] sont bien dans le style de 0,xxx ou 1.xxx ou 2.xx
+			
+		}
+	}
+	return (-1);
+}
+
+int	check_args(int argc, char **argv, t_data *data)
+{
+	if (argc != 2 && check_input_julia(argc, argv) != 0)
 	{
 		ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | \
 burningship]\n", 2);
 		return (-1);
 	}
-	if (ft_strncmp(argv[1], "julia", 5) == 0)
-		return (0);
-	else if (ft_strncmp(argv[1], "mandelbrot", 11) == 0)
+	if (ft_strncmp(argv[1], "julia", max_value((size_t)(argv[1]), 5)) == 0)
+		return (set_julia(argv, data));
+	else if (ft_strncmp(argv[1], "mandelbrot", \
+		max_value((size_t)(argv[1]), 11)) == 0)
 		return (1);
-	else if (ft_strncmp(argv[1], "burningship", 11) == 0)
+	else if (ft_strncmp(argv[1], "burningship", \
+	max_value((size_t)(argv[1]), 11)) == 0)
 		return (2);
 	else
 	{
@@ -69,7 +90,7 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	data = malloc(sizeof(t_data));
-	data->mode = check_args(argc, argv);
+	data->mode = check_args(argc, argv, data);
 	if (data->mode == -1)
 	{
 		free(data);
@@ -79,7 +100,7 @@ int	main(int argc, char **argv)
 	data->palette = palette;
 	init_data(data);
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Fract-ol");
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Fractol");
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	mlx_on_event(data->mlx, data->win, 0, hook_key_keyboard, data);
 	mlx_on_event(data->mlx, data->win, 5, hook_key_keyboard, data);

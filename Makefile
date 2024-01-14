@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2024/01/11 18:09:26 by asuc             ###   ########.fr        #
+#    Updated: 2024/01/14 22:55:10 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ RESET		=	$(shell echo "\033[0m")
 BRed		=	$(shell echo "\033[1;31m")
 BCyan		=	$(shell echo "\033[1;36m")
 Green		=	$(shell echo "\033[0;32m")
-NAME		=	fract-ol
+NAME		=	fractol
 COMP		=	clang
 CFLAGS		=	-Wall -Werror -Wextra
 libft		=	Libft/
@@ -29,7 +29,8 @@ SRC			=	srcs/color.c \
 				srcs/julia.c \
 				srcs/burningship.c \
 				srcs/pixel_change.c \
-				srcs/change_color.c
+				srcs/change_color.c	\
+				srcs/utils.c
 
 MacroLibX	=	MacroLibX/
 

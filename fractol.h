@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/11 18:09:46 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/14 22:46:25 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void				add_pixel_size(t_data *data);
 void				remove_pixel_size(t_data *data);
 void				set_pixel_size_to(t_data *data, int pixel_size);
 void				hook_key_keyboard_2(int keycode, void *data);
+size_t				max_value(size_t nb1, size_t nb2);
 
 #endif
