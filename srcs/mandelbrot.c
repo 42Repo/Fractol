@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:22:07 by asuc              #+#    #+#             */
-/*   Updated: 2023/12/16 20:10:34 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/15 00:09:48 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,11 @@ int	mandelbrot(t_data *data)
 	data->max_x = data->center_x + (2.0 / data->zoom_factor);
 	data->min_y = data->center_y - (2.0 / data->zoom_factor);
 	data->max_y = data->center_y + (2.0 / data->zoom_factor);
-	i = 0;
-	j = 0;
 	if (WIDTH > HEIGHT)
 		ratio = (double)HEIGHT / (double)WIDTH;
 	else
 		ratio = (double)WIDTH / (double)HEIGHT;
+	i = 0;
 	while (i < WIDTH)
 	{
 		j = 0;
