@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/15 00:24:14 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/15 00:35:56 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 1920
+# define HEIGHT 1080
 # define PALETTE_SIZE 256
 
 typedef struct s_data
