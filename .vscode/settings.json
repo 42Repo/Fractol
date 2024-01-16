@@ -71,6 +71,7 @@
     "complex": "c",
     "random": "c",
     "stdlib.h": "c",
-    "chrono": "c"
+    "chrono": "c",
+    "ratio": "c"
   }
 }

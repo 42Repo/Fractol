@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 22:39:14 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/15 00:42:06 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/17 00:03:50 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ double	ft_atod(const char *str)
 	res = 0;
 	sign = 1;
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-	{
 		i++;
-	}
 	if (str[i] == '-')
 	{
 		sign = -1;

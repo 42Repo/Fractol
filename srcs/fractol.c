@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/15 00:24:58 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/17 00:29:12 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,50 +38,18 @@ void	init_data(t_data *data)
 	data->pixel_size = 1;
 }
 
-int	set_julia(char **argv, t_data *data)
-{
-	data->c_i = (double)ft_atod(argv[2]);
-	data->c_r = (double)ft_atod(argv[3]);
-	return (0);
-}
-
-int	check_args(int argc, char **argv, t_data *data)
-{
-	if (argc != 2 && check_input_julia(argc, argv) != 0)
-	{
-		ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | \
-burningship]\n", 2);
-		return (-1);
-	}
-	if (ft_strncmp(argv[1], "julia", max_value((size_t)(argv[1]), 5)) == 0)
-		return (set_julia(argv, data));
-	else if (ft_strncmp(argv[1], "mandelbrot", max_value((size_t)(argv[1]),
-			11)) == 0)
-		return (1);
-	else if (ft_strncmp(argv[1], "burningship", max_value((size_t)(argv[1]),
-			11)) == 0)
-		return (2);
-	else
-	{
-		ft_putstr_fd("Usage: ./fractol [julia | mandelbrot | \
-burningship]\n", 2);
-		return (-1);
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_data			*data;
 	unsigned int	palette[PALETTE_SIZE];
 
-	(void)argc;
 	data = malloc(sizeof(t_data));
 	init_data(data);
 	data->mode = check_args(argc, argv, data);
 	if (data->mode == -1)
 	{
 		free(data);
-		return (0);
+		return (-1);
 	}
 	init_palette(palette);
 	data->palette = palette;

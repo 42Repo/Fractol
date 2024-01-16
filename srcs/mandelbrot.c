@@ -6,125 +6,80 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:22:07 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/15 00:09:48 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/17 00:08:51 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-double	map(double x, double in_min, double in_max, double out_min,
-		double out_max)
+static void	calculate(t_data *data, double *zr, double *zi)
 {
-	return (((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min));
+	double	i0;
+	double	j0;
+	double	ktemp;
+
+	calculate_map(&i0, &j0, data);
+	(*zr) = 0;
+	(*zi) = 0;
+	data->iter = 0;
+	while ((*zr) * (*zr) + (*zi) * (*zi) <= 4 && data->iter < data->max_iter)
+	{
+		ktemp = (*zr) * (*zr) - (*zi) * (*zi) + i0;
+		(*zi) = 2 * (*zr) * (*zi) + j0;
+		(*zr) = ktemp;
+		data->iter++;
+	}
 }
 
-void	put_pixel_art(t_data *data, int x, int y, unsigned int color)
+static double	calculate_mandelbrot(t_data *data)
 {
-	int	dx;
-	int	dy;
+	double	log_zn;
+	double	nu;
+	double	zr;
+	double	zi;
 
-	dx = 0;
-	while (dx < data->pixel_size)
+	calculate(data, &zr, &zi);
+	if (data->smooth == 1)
 	{
-		dy = 0;
-		while (dy < data->pixel_size)
-		{
-			if (x + dx < WIDTH && y + dy < HEIGHT)
-			{
-				mlx_pixel_put(data->mlx, data->win, x + dx, y + dy, color);
-			}
-			dy++;
-		}
-		dx++;
+		log_zn = log(zr * zr + zi * zi) / 2;
+		nu = log(log_zn / log(2)) / log(2);
+		nu = (double)data->iter + 1 - nu;
+		return (nu);
 	}
+	return (0);
+}
+
+static int	mandelbrot_loop(t_data *data)
+{
+	double	mu;
+
+	mu = calculate_mandelbrot(data);
+	if (data->color_mode == 0)
+	{
+		data->color = 0x00000000;
+		if (data->smooth == 1)
+			smooth_color(data, mu);
+		else
+			base_color(data);
+		put_pixel_art(data, data->i, data->j, data->color);
+	}
+	return (0);
 }
 
 int	mandelbrot(t_data *data)
 {
-	int				i;
-	int				j;
-	double			i0;
-	double			j0;
-	double			zr;
-	double			zi;
-	double			ktemp;
-	double			ratio;
-	unsigned int	color1;
-	unsigned int	color2;
-	double			log_zn;
-	double			nu;
-	double			mu;
-
-	data->min_x = data->center_x - (2.0 / data->zoom_factor);
-	data->max_x = data->center_x + (2.0 / data->zoom_factor);
-	data->min_y = data->center_y - (2.0 / data->zoom_factor);
-	data->max_y = data->center_y + (2.0 / data->zoom_factor);
-	if (WIDTH > HEIGHT)
-		ratio = (double)HEIGHT / (double)WIDTH;
-	else
-		ratio = (double)WIDTH / (double)HEIGHT;
-	i = 0;
-	while (i < WIDTH)
+	set_min_max(data);
+	data->ratio = set_ratio();
+	data->i = 0;
+	while (data->i < WIDTH)
 	{
-		j = 0;
-		while (j < HEIGHT)
+		data->j = 0;
+		while (data->j < HEIGHT)
 		{
-			if (WIDTH > HEIGHT)
-			{
-				i0 = map(i, 0, WIDTH, data->min_x, data->max_x);
-				j0 = map(j, 0, HEIGHT, data->min_y * ratio, data->max_y
-						* ratio);
-			}
-			else
-			{
-				i0 = map(i, 0, WIDTH, data->min_x * ratio, data->max_x * ratio);
-				j0 = map(j, 0, HEIGHT, data->min_y, data->max_y);
-			}
-			zr = 0;
-			zi = 0;
-			data->iter = 0;
-			while (zr * zr + zi * zi <= 4 && data->iter < data->max_iter)
-			{
-				ktemp = zr * zr - zi * zi + i0;
-				zi = 2 * zr * zi + j0;
-				zr = ktemp;
-				data->iter++;
-			}
-			if (data->smooth == 1)
-			{
-				log_zn = log(zr * zr + zi * zi) / 2;
-				nu = log(log_zn / log(2)) / log(2);
-				mu = (double)data->iter + 1 - nu;
-			}
-			if (data->color_mode == 0)
-			{
-				data->color = 0x00000000;
-				if (data->smooth == 1)
-				{
-					if (data->iter != data->max_iter)
-					{
-						color1 = get_palette_color(floor(mu), data->palette);
-						color2 = get_palette_color(ceil(mu), data->palette);
-						data->color = linear_interpolate(color1, color2, mu
-								- floor(mu));
-					}
-				}
-				else
-				{
-					if (data->iter != data->max_iter)
-					{
-						color1 = get_palette_color((data->iter), data->palette);
-						color2 = get_palette_color((data->iter) + 1,
-								data->palette);
-						data->color = linear_interpolate(color1, color2,
-								data->iter - floor(data->iter));
-					}
-				}
-				put_pixel_art(data, i, j, data->color);
-			}
-			j += data->pixel_size;
+			mandelbrot_loop(data);
+			data->j += data->pixel_size;
 		}
-		i += data->pixel_size;
+		data->i += data->pixel_size;
 	}
 	return (0);
 }

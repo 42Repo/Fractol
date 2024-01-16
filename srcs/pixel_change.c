@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:55:20 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/11 17:55:31 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/17 00:05:26 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,25 @@ void	remove_pixel_size(t_data *data)
 void	set_pixel_size_to(t_data *data, int pixel_size)
 {
 	data->pixel_size = pixel_size;
+}
+
+void	put_pixel_art(t_data *data, int x, int y, unsigned int color)
+{
+	int	dx;
+	int	dy;
+
+	dx = 0;
+	while (dx < data->pixel_size)
+	{
+		dy = 0;
+		while (dy < data->pixel_size)
+		{
+			if (x + dx < WIDTH && y + dy < HEIGHT)
+			{
+				mlx_pixel_put(data->mlx, data->win, x + dx, y + dy, color);
+			}
+			dy++;
+		}
+		dx++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:59:24 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/15 00:35:56 by asuc             ###   ########.fr       */
+/*   Updated: 2024/01/17 00:19:57 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 800
+# define HEIGHT 800
 # define PALETTE_SIZE 256
 
 typedef struct s_data
@@ -46,6 +46,9 @@ typedef struct s_data
 	int				color_mode;
 	int				smooth;
 	int				pixel_size;
+	double			ratio;
+	int				i;
+	int				j;
 }					t_data;
 
 unsigned int		linear_interpolate(unsigned int color1, unsigned int color2,
@@ -59,7 +62,7 @@ int					hook_key_keyboard(int keycode, void *data);
 void				increase_max_iter(t_data *data);
 void				decrease_max_iter(t_data *data);
 void				set_iteration_to(t_data *data, int iter);
-double				map(double x, double in_min, double in_max, double out_min,
+double				map(double x, double in_max, double out_min,
 						double out_max);
 int					mandelbrot(t_data *data);
 void				move_right(t_data *data);
@@ -82,5 +85,13 @@ void				hook_key_keyboard_2(int keycode, void *data);
 size_t				max_value(size_t nb1, size_t nb2);
 double				ft_atod(const char *str);
 int					check_input_julia(int argc, char **argv);
+void				set_min_max(t_data *data);
+double				set_ratio(void);
+void				calculate_map(double *i0, double *j0, t_data *data);
+void				base_color(t_data *data);
+void				smooth_color(t_data *data, double mu);
+double				abs_double(double x);
+int					check_args(int argc, char **argv, t_data *data);
+int					error(char *str);
 
 #endif

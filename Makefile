@@ -6,7 +6,7 @@
 #    By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/12 17:42:16 by asuc              #+#    #+#              #
-#    Updated: 2024/01/14 22:55:10 by asuc             ###   ########.fr        #
+#    Updated: 2024/01/17 00:19:17 by asuc             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,11 @@ SRC			=	srcs/color.c \
 				srcs/burningship.c \
 				srcs/pixel_change.c \
 				srcs/change_color.c	\
-				srcs/utils.c
+				srcs/utils.c \
+				srcs/fractol_utils.c \
+				srcs/fractol_color.c \
+				srcs/check_input.c \
+				srcs/error.c
 
 MacroLibX	=	MacroLibX/
 
