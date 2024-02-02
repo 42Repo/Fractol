@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 00:12:28 by asuc              #+#    #+#             */
-/*   Updated: 2024/01/17 00:23:08 by asuc             ###   ########.fr       */
+/*   Updated: 2024/02/02 01:43:58 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	check_args(int argc, char **argv, t_data *data)
 {
 	if (check_input(argc, argv) == -1)
 	{
-		if (ft_strncmp(argv[1], "julia", max_value((size_t)(argv[1]), 5)) == 0)
+		if (argv[1] != NULL && ft_strncmp(argv[1], "julia",
+				max_value((size_t)(argv[1]), 5)) == 0)
 			return (error("Usage: ./fractol julia [c_r] [c_i]\n"));
 		else
 			return (error("Usage: ./fractol [julia | mandelbrot |\

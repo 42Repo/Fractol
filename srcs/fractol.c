@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2024/02/01 20:06:50 by asuc             ###   ########.fr       */
+/*   Updated: 2024/02/02 01:43:48 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,37 @@ void	init_data(t_data *data)
 	data->pixel_size = 1;
 }
 
+int	init_mlx(t_data *data)
+{
+	data->mlx = mlx_init();
+	if (!data->mlx)
+		return (-1);
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Fractol");
+	if (!data->win)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data);
+		return (-1);
+	}
+	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->img)
+	{
+		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_display(data->mlx);
+		free(data);
+		return (-1);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data			*data;
 	unsigned int	palette[PALETTE_SIZE];
 
 	data = malloc(sizeof(t_data));
+	if (!data)
+		return (-1);
 	init_data(data);
 	data->mode = check_args(argc, argv, data);
 	if (data->mode == -1)
@@ -53,9 +78,8 @@ int	main(int argc, char **argv)
 	}
 	init_palette(palette);
 	data->palette = palette;
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Fractol");
-	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (init_mlx(data) == -1)
+		return (-1);
 	mlx_on_event(data->mlx, data->win, 0, hook_key_keyboard, data);
 	mlx_on_event(data->mlx, data->win, 5, hook_key_keyboard, data);
 	mlx_on_event(data->mlx, data->win, 4, hook_key_mouse, data);
