@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:55:20 by asuc              #+#    #+#             */
-/*   Updated: 2024/02/01 20:10:16 by asuc             ###   ########.fr       */
+/*   Updated: 2024/02/05 18:24:46 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	put_pixel_art(t_data *data, int x, int y, unsigned int color)
 			if (x + dx < WIDTH && y + dy < HEIGHT)
 			{
 				color += 0xFF000000;
-				mlx_pixel_put(data->mlx, data->win, x + dx, y + dy, color);
+				mlx_set_image_pixel(data->mlx, data->img, x + dx, y + dy, color);
 			}
 			dy++;
 		}

@@ -6,7 +6,7 @@
 /*   By: asuc <asuc@student.42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 21:55:00 by asuc              #+#    #+#             */
-/*   Updated: 2024/02/02 01:43:48 by asuc             ###   ########.fr       */
+/*   Updated: 2024/02/05 18:22:05 by asuc             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	init_mlx(t_data *data)
 		free(data);
 		return (-1);
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
 
